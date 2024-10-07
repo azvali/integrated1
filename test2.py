@@ -11,7 +11,7 @@ from datetime import datetime
 current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
 image_path = f"/home/yousef/Desktop/captured_image_{current_time}.jpg"
     
-
+api_key = {OPENAI_API_KEY}
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
