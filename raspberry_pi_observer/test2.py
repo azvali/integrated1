@@ -1,6 +1,6 @@
 import requests
 import base64
-from picamera2 import Picamera2
+#from picamera2 import Picamera2
 from time import sleep
 from datetime import datetime
 
@@ -9,29 +9,36 @@ from datetime import datetime
 
 host = "http://34.28.70.95/"
 current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
-image_path = "" f"/home/yousef/Desktop/captured_image_{current_time}.jpg"
+image_path = "./dashboard_app/uploads/parking-lot-facebook.jpg" 
+
+## "" f"/home/yousef/Desktop/captured_image_{current_time}.jpg"
     
-api_key = {OPENAI_API_KEY}
+#api_key = {OPENAI_API_KEY}
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
 
+
+def camFunc():
+    picam2 = Picamera2()
+    picam2.start()
+    sleep(2)  
+        
+        
+        
+        
+        
+    picam2.capture_file(image_path)
+    picam2.stop()
+    
+    
 def capture_image():
     while(True):
-        picam2 = Picamera2()
-        picam2.start()
-        sleep(2)  
         
         
-        
-        
-        
-        picam2.capture_file(image_path)
-        picam2.stop()
-        
-        image_path = f"/home/yousef/Desktop/captured_image_{current_time}.jpg"
+        #image_path = f"/home/yousef/Desktop/captured_image_{current_time}.jpg"
         base64_image = encode_image(image_path)
         
                 
