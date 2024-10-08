@@ -1,0 +1,91 @@
+body {
+  width: 100vw;
+  height: 100vh;
+
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.header_block {
+  background-color: rgb(48, 48, 48);
+  color: #e6e6e6;
+
+  text-align: center;
+  align-content: center;
+
+  font-size: 2em;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+
+  width: 100vw;
+  height: 15vh;
+}
+
+.body_block {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: #c5a880;
+}
+.display_block {
+  background-color: #e6e6e6;
+
+  width: 27.5vw;
+  height: 64.5vh;
+
+  margin: 3%;
+}
+
+.img_block {
+  background-color: rgb(48, 48, 48);
+
+  width: 27.5vw;
+  height: 42.5vh;
+}
+
+.info_block {
+  display: flex;
+  background-color: #c5a880;
+
+  justify-content: center;
+  align-items: center;
+
+  width: 27.5vw;
+  height: 22vh;
+}
+
+.availability_block {
+  background-color: rgb(48, 48, 48);
+  color: white;
+
+  text-align: center;
+  align-content: center;
+
+  margin: 2%;
+
+  width: 12vw;
+  height: 20vh;
+}
+
+.electric_block {
+  background-color: rgb(48, 48, 48);
+
+  color: white;
+
+  text-align: center;
+  align-content: center;
+
+  margin: 2%;
+
+  width: 12vw;
+  height: 20vh;
+}
+
+.footer {
+  background-color: rgb(48, 48, 48);
+
+  width: 100vw;
+  height: 8vh;
+}
