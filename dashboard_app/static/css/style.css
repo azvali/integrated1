@@ -63,6 +63,13 @@ body {
   height: 42.5vh;
 }
 
+#lot_1 {
+  /* background-color: rebeccapurple; */
+
+  height: 42.5vh;
+  /* width: 27.5vw; */
+}
+
 .info_block {
   display: flex;
   background-color: #c5a880;
