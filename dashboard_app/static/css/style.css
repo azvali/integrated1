@@ -57,17 +57,19 @@ body {
 }
 
 .img_block {
+  display: flex;
+
   background-color: rgb(48, 48, 48);
 
   width: 27.5vw;
   height: 42.5vh;
+
+  justify-content: center;
+  align-items: center;
 }
 
-#lot_1 {
-  /* background-color: rebeccapurple; */
-
-  height: 42.5vh;
-  /* width: 27.5vw; */
+#parking_lot_1 {
+  height: 35vh;
 }
 
 .info_block {
