@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 
-
+host = "http://34.28.70.95/"
 current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
 image_path = f"/home/yousef/Desktop/captured_image_{current_time}.jpg"
     
@@ -70,9 +70,16 @@ response = requests.post("https://api.openai.com/v1/chat/completions", headers=h
 
 if response.status_code == 200:
     response_json = response.json()
-   
-    description = response_json['choices'][0]['message']['content']
+
+    description = response_json['choices'][0]['message']['content'] 
     print(description)
+    
+
+    with open(image_path, 'rb') as image_file:
+        
+        files = {'file': image_file}
+        requests.post(host + "/submit", json=description, files=files)
+        
 else:
     print(f"Error: {response.status_code}")
     print(response.text)

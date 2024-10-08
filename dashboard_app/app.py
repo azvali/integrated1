@@ -8,10 +8,19 @@ def home():
 
 @app.route('/submit', methods=['POST'])
 def submit():
-    data = request.get_json()
+    if 'file' not in request.files:
+        return jsonify({'status': 'error', 'message': 'No file part'}), 400
+
+    file = request.files['file']
+    
+    if file.filename == '':
+        return jsonify({'status': 'error', 'message': 'No selected file'}), 400
+
+    file.save(f'uploads/{file.filename}')
+
     response = {
         'status': 'success',
-        'data': data
+        'filename': file.filename
     }
     return jsonify(response)
 
