@@ -1,5 +1,6 @@
 import requests
 import base64
+import json
 #from picamera2 import Picamera2
 from time import sleep
 from datetime import datetime
@@ -39,7 +40,10 @@ def capture_image():
         
         
         #image_path = f"/home/yousef/Desktop/captured_image_{current_time}.jpg"
+        
+        
         base64_image = encode_image(image_path)
+        #print(base64_image)
         
                 
         headers = {
@@ -82,11 +86,19 @@ def capture_image():
             print(description)
                 
 
-            with open(image_path, 'rb') as image_file:
+            #with open(image_path, 'rb') as image_file:
                     
-                files = {'file': image_file}
-                requests.post(host + "/submit", json=description, files=files)
-                    
+                #files = {'file': image_file}
+                
+            data = {
+                "description": description,
+                "image": base64_image
+            }
+            
+            uploadjson = json.dumps(data)
+            requests.post(host + "/submit", json=uploadjson)  #files=files
+            base64_image = "nothing" 
+            #print(base64_image)   
         else:
             print(f"Error: {response.status_code}")
             print(response.text)
