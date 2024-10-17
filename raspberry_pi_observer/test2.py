@@ -9,6 +9,7 @@ from datetime import datetime
 
 
 host = "http://34.28.70.95/"
+
 current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
 image_path = "./dashboard_app/uploads/parking-lot-facebook.jpg" 
 
