@@ -19,10 +19,7 @@
     <div class="body_block">
       <div class="display_block">
         <div class="img_block">
-          <img
-            id="parking_lot_1"
-            src="data:image/jpg;base64,{{ base64_iamge  }}"
-          />
+          <img id="parking_lot_1" />
         </div>
         <div class="info_block">
           <div class="availability_block">
@@ -53,6 +50,7 @@
     <div class="footer"></div>
   </body>
   <script>
-    // document.getElementById("parking_lot_1").src = "data:image/jpg;base64,{{ base64_iamge  }}"
+    document.getElementById("parking_lot_1").src =
+      "data:image/jpg;base64,{{ base64_iamge  }}";
   </script>
 </html>
