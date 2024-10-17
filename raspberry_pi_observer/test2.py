@@ -96,10 +96,8 @@ def capture_image():
                 "image": base64_image
             }
             
-            uploadjson = json.dumps(data)
-            
             #sends to webserver
-            requests.post(host + "/submit", json=uploadjson)  #files=files
+            requests.post(host + "/submit", json=data)  #files=files
             
             
             base64_image = "nothing" 
