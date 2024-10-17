@@ -8,7 +8,7 @@ from datetime import datetime
 
 
 
-host = "http://34.28.70.95/"
+host = "http://35.202.87.146/"
 
 current_time = datetime.now().strftime("%Y%m%d_%H%M%S")
 image_path = "./dashboard_app/uploads/parking-lot-facebook.jpg" 
@@ -97,7 +97,11 @@ def capture_image():
             }
             
             uploadjson = json.dumps(data)
+            
+            #sends to webserver
             requests.post(host + "/submit", json=uploadjson)  #files=files
+            
+            
             base64_image = "nothing" 
             #print(base64_image)   
         else:
