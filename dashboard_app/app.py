@@ -12,7 +12,7 @@ def home():
     base64_image = session.get('base64_image', get_default_base64_image())
     description = session.get('description', "No Data Found")
 
-    print("home endpoint: " + base64_image)
+    print("home endpoint: " + base64_image[:10])
     
     return render_template('index.html', base64_image = base64_image, description = description)
 
@@ -31,8 +31,8 @@ def submit():
     
     description = data.get('description', None)
     base64_image = data.get('image', None)
-    print("submit endpoint: " + base64_image)
-    session['base64_image'] = base64_image
+    print("submit endpoint: " + base64_image[:10])
+    session = base64_image
     session['description'] = description
     if not description or not base64_image:
         return jsonify({'status': 'error', 'message': 'Missing description or image data'}), 400
