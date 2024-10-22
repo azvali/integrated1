@@ -23,7 +23,7 @@ def home():
 
 
 @app.route('/submit', methods=['POST'])
-def submit():
+async def submit():
 
     global description
     global base64_image
