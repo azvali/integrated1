@@ -6,11 +6,15 @@ def get_default_base64_image():
     with open("uploads/parking-lot-facebook.jpg", "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
     
+
+base64_image = get_default_base64_image()
+description = "This is a parking lot"
     
 @app.route('/')
 def home():
-    base64_image = session.get('base64_image', get_default_base64_image())
-    description = session.get('description', "No Data Found")
+
+    global base64_image
+    global description
 
     print("home endpoint: " + base64_image[:10])
     
@@ -20,6 +24,10 @@ def home():
 
 @app.route('/submit', methods=['POST'])
 def submit():
+
+    global description
+    global base64_image
+    print("dog")
     # Ensure the request contains JSON
     if not request.is_json:
         return jsonify({'status': 'error', 'message': 'Request must be JSON'}), 400
@@ -27,13 +35,9 @@ def submit():
     # Get the data from the request
     data = request.get_json()
 
-    
-    
     description = data.get('description', None)
     base64_image = data.get('image', None)
     print("submit endpoint: " + base64_image[:10])
-    session = base64_image
-    session['description'] = description
     if not description or not base64_image:
         return jsonify({'status': 'error', 'message': 'Missing description or image data'}), 400
     
