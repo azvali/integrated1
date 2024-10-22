@@ -9,7 +9,6 @@ def get_default_base64_image():
     
 @app.route('/')
 def home():
-    base64_image = get_default_base64_image()
     description = "No Data Found"
     
     
@@ -27,8 +26,7 @@ def submit():
     data = request.get_json()
     
     description = data.get('description', None)
-    #base64_image = data.get('image', None)
-    base64_image = img
+    base64_image = data.get('image', None)
     if not description or not base64_image:
         return jsonify({'status': 'error', 'message': 'Missing description or image data'}), 400
     
