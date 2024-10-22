@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session
 app = Flask(__name__)
 import base64
 
@@ -9,8 +9,8 @@ def get_default_base64_image():
     
 @app.route('/')
 def home():
-    description = "No Data Found"
-    
+    base64_image = session.get('base64_image', get_default_base64_image())
+    description = session.get('description', "No Data Found")
     
     return render_template('index.html', base64_image = base64_image, description = description)
 
@@ -27,6 +27,8 @@ def submit():
     
     description = data.get('description', None)
     base64_image = data.get('image', None)
+    session['base64_image'] = base64_image
+    session['description'] = description
     if not description or not base64_image:
         return jsonify({'status': 'error', 'message': 'Missing description or image data'}), 400
     
