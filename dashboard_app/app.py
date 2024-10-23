@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 UPLOAD_FOLDER = "uploads"
 IMAGE_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_image.txt")
+DESCRIPTION_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_description.txt")
 
 def get_default_base64_image():
     with open(os.path.join(UPLOAD_FOLDER, "parking-lot-facebook.jpg"), "rb") as image_file:
@@ -17,9 +18,19 @@ def get_current_image_data():
             return image_file.read()
     return get_default_base64_image()
 
+def get_current_description_data():
+    if os.path.exists(DESCRIPTION_FILE_PATH):
+        with open(DESCRIPTION_FILE_PATH, "r") as description_file:
+            return description_file.read()
+    return "Fake parking lot"
+
 def save_image_data(image_data):
     with open(IMAGE_FILE_PATH, "w") as image_file:
         image_file.write(image_data)
+
+def save_description_data(image_data):
+    with open(DESCRIPTION_FILE_PATH, "w") as description_file:
+        description_file.write(image_data)
 
 # Initialize with default image
 if not os.path.exists(IMAGE_FILE_PATH):
@@ -28,7 +39,7 @@ if not os.path.exists(IMAGE_FILE_PATH):
 @app.route('/')
 def home():
     base64_image = get_current_image_data()
-    description = "Fake parking lot"  # You may also store this in a file if it needs to be dynamic
+    description = get_current_description_data() 
 
     print("home endpoint: " + base64_image[:10])
     return render_template('index.html', base64_image=base64_image, description=description)
@@ -50,6 +61,7 @@ async def submit():
 
     # Save the image data to a file
     save_image_data(base64_image)
+    save_description_data(description)
 
     # Send a response indicating success
     response = {
