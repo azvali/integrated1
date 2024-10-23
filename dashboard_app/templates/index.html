@@ -59,7 +59,9 @@
     //change the color of the availability block based on the description
     document.addEventListener("DOMContentLoaded", function () {
       const availabilityBlock = document.getElementById("availability_block");
-      const description = document.getElementById("description");
+      const description = document
+        .getElementById("description")
+        .innerText.toLowerCase();
       const descriptionElement = document.getElementById("description");
 
       console.log("dom content loaded");
