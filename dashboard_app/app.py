@@ -15,14 +15,14 @@ def home():
 
 # Route to receive base64 string and description from Raspberry Pi
 @app.route('/submit', methods=['POST'])
-async def submit():
+def submit():
     global base64_image
     global description
 
     if not request.is_json:
         return jsonify({'status': 'error', 'message': 'Request must be JSON'}), 400
 
-    data = await request.get_json()
+    data = request.get_json()
     
     # Update the image and description with incoming data from the Raspberry Pi
     base64_image = data.get('image', base64_image)  # Update base64 string
