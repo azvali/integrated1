@@ -98,18 +98,6 @@ body {
   height: 20vh;
 }
 
-.available {
-  background-color: green;
-}
-
-.unavailable {
-  background-color: red;
-}
-
-.pending {
-  background-color: orange;
-}
-
 .electric_block {
   background-color: rgb(48, 48, 48);
 

@@ -27,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="display_block">
+      <!-- <div class="display_block">
         <div class="img_block"></div>
         <div class="info_block">
           <div class="availability_block">
@@ -44,7 +44,7 @@
           </div>
           <div class="electric_block">electric car charging spots (yes/no)</div>
         </div>
-      </div>
+      </div> -->
     </div>
     <div class="footer"></div>
   </body>
@@ -63,12 +63,13 @@
         .getElementById("description")
         .innerText.toLowerCase();
 
+      console.log("dom content loaded");
       if (description.includes("low")) {
-        availabilityBlock.style.backgroundColor = "red";
+        description.style.color = "red";
       } else if (description.includes("high")) {
-        availabilityBlock.style.backgroundColor = "green";
+        description.style.color = "green";
       } else if (description.includes("medium")) {
-        availabilityBlock.style.backgroundColor = "orange";
+        description.style.color = "orange";
       }
     });
   </script>
