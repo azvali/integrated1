@@ -1,3 +1,4 @@
+from os import name
 from flask import Flask, render_template, request, jsonify, g
 app = Flask(name)
 import base64
