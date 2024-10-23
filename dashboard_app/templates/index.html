@@ -19,11 +19,11 @@
     <div class="body_block">
       <div class="display_block">
         <div class="img_block">
-          <img id="parking_lot_1" />
+          <img id="parking_lot_1" src="data:image/webp;base64,{{ base64_image }}" alt="Parking lot image" />
         </div>
         <div class="info_block">
           <div id="availability_1" class="availability_block">
-            parking availability: {{description}}
+            parking availability: {{ description }}
           </div>
           <div class="electric_block">electric car charging spots (yes/no)</div>
         </div>
@@ -67,7 +67,7 @@
           const data = await response.json();
           
           if (data.status === 'success') {
-            // Update the image and description on the page
+            // Update the image src with the new base64-encoded image
             document.getElementById('parking_lot_1').src =
               "data:image/webp;base64," + data.image;
             document.getElementById('availability_1').textContent =
