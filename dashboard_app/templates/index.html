@@ -37,15 +37,6 @@
           <div class="electric_block">electric car charging spots (yes/no)</div>
         </div>
       </div>
-      <div class="display_block">
-        <div class="img_block"></div>
-        <div class="info_block">
-          <div class="availability_block">
-            parking availability (low, medium, high)
-          </div>
-          <div class="electric_block">electric car charging spots (yes/no)</div>
-        </div>
-      </div>
     </div>
     <div class="footer"></div>
     
@@ -64,8 +55,9 @@
               image: 'fetch_latest',
             }),
           });
+
           const data = await response.json();
-          
+
           if (data.status === 'success') {
             // Update the image src with the new base64-encoded image
             document.getElementById('parking_lot_1').src =
