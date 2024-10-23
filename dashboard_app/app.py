@@ -10,11 +10,15 @@ def get_default_base64_image():
         return base64.b64encode(image_file.read()).decode('utf-8')
     
 
-g.base64_image = get_default_base64_image()
-g.description = "No Data Found"
+@app.before_request
+def before_request():
+    g.base64_image = None
+    g.description = None
     
 @app.route('/')
 def home():
+    base64_image = g.base64_image or "default_base64_image"
+    description = g.description or get_default_base64_image()
     print("home endpoint: " + base64_image[:10])
     
     return render_template('index.html', base64_image =g.base64_image, description =g.description)
