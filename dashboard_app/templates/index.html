@@ -62,14 +62,15 @@
       const description = document
         .getElementById("description")
         .innerText.toLowerCase();
+      const descriptionElement = document.getElementById("description");
 
       console.log("dom content loaded");
       if (description.includes("low")) {
-        description.style.color = "red";
+        descriptionElement.style.color = "red";
       } else if (description.includes("high")) {
-        description.style.color = "green";
+        descriptionElement.style.color = "green";
       } else if (description.includes("medium")) {
-        description.style.color = "orange";
+        descriptionElement.style.color = "orange";
       }
     });
   </script>
