@@ -59,17 +59,15 @@
     //change the color of the availability block based on the description
     document.addEventListener("DOMContentLoaded", function () {
       const availabilityBlock = document.getElementById("availability_block");
-      const description = document
-        .getElementById("description")
-        .innerText.toLowerCase();
+      const description = document.getElementById("description");
       const descriptionElement = document.getElementById("description");
 
       console.log("dom content loaded");
-      if (description.includes("low")) {
+      if (description.includes("Low")) {
         descriptionElement.style.color = "red";
-      } else if (description.includes("high")) {
+      } else if (description.includes("High")) {
         descriptionElement.style.color = "green";
-      } else if (description.includes("medium")) {
+      } else if (description.includes("Medium")) {
         descriptionElement.style.color = "orange";
       }
     });
