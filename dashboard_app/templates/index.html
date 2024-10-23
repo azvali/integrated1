@@ -44,27 +44,22 @@
   <script>
     // Function to update image and description dynamically
     function updateParkingLot() {
-      fetch("/submit", {
-        method: "POST",
+      fetch('/submit', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          description: "fetch_latest",
-          image: "fetch_latest",
-        }),
+        body: JSON.stringify({description: "fetch_latest", image: "fetch_latest"})
       })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.status === "success") {
-            // Update image and description on the page
-            document.getElementById("parking_lot_1").src =
-              "data:image/webp;base64," + data.image;
-            document.getElementById("availability_1").textContent =
-              "parking availability: " + data.description;
-          }
-        })
-        .catch((err) => console.log("Error:", err));
+      .then(response => response.json())
+      .then(data => {
+        if(data.status === 'success') {
+          // Update image and description on the page
+          document.getElementById('parking_lot_1').src = "data:image/webp;base64," + data.image;
+          document.getElementById('availability_1').textContent = "parking availability: " + data.description;
+        }
+      })
+      .catch(err => console.log('Error:', err));
     }
 
     // Poll the server every 5 seconds to get updates
