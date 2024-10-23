@@ -22,17 +22,8 @@
           <img id="parking_lot_1" />
         </div>
         <div class="info_block">
-          <div class="availability_block">
+          <div id="availability_1" class="availability_block">
             parking availability: {{description}}
-          </div>
-          <div class="electric_block">electric car charging spots (yes/no)</div>
-        </div>
-      </div>
-      <div class="display_block">
-        <div class="img_block"></div>
-        <div class="info_block">
-          <div class="availability_block">
-            parking availability (low, medium, high)
           </div>
           <div class="electric_block">electric car charging spots (yes/no)</div>
         </div>
@@ -49,8 +40,34 @@
     </div>
     <div class="footer"></div>
   </body>
+
   <script>
-    document.getElementById("parking_lot_1").src =
-      "data:image/webp;base64,{{ base64_image  }}";
+    // Function to update image and description dynamically
+    function updateParkingLot() {
+      fetch("/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          description: "fetch_latest",
+          image: "fetch_latest",
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            // Update image and description on the page
+            document.getElementById("parking_lot_1").src =
+              "data:image/webp;base64," + data.image;
+            document.getElementById("availability_1").textContent =
+              "parking availability: " + data.description;
+          }
+        })
+        .catch((err) => console.log("Error:", err));
+    }
+
+    // Poll the server every 5 seconds to get updates
+    setInterval(updateParkingLot, 5000);
   </script>
 </html>
