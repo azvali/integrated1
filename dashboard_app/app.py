@@ -18,7 +18,8 @@ description = "Fake parking lot"
 def home():
     global base64_image 
     global description 
-    print("home endpoint: " + base64_image[:10])
+    print(base64_image[:10])
+    print(description)
     
     return render_template('index.html', base64_image = base64_image, description = description)
 
@@ -29,7 +30,6 @@ async def submit():
  
     global base64_image
     global description
-    print("dog")
     # Ensure the request contains JSON
     if not request.is_json:
         return jsonify({'status': 'error', 'message': 'Request must be JSON'}), 400
@@ -40,7 +40,6 @@ async def submit():
     description = data.get('description', None)
     base64_image = data.get('image', None)
     
-    print("submit endpoint: " + base64_image[:10])
     if not description or not base64_image:
         return jsonify({'status': 'error', 'message': 'Missing description or image data'}), 400
 
