@@ -50,12 +50,13 @@
     <div class="footer"></div>
   </body>
   <script>
-    // Set the image source using the base64 string
+    // Set the image source using the base64 string passed from Flask to Jinja
     document.getElementById("parking_lot_1").src =
-      "data:image/webp;base64,{{ base64_image }}";
-
-    // Log the first 10 characters of the base64 string
+      "data:image/webp;base64,{{ base64_image|safe }}";
+  
+    // Log the first 10 characters of the base64 string in the console
     console.log("{{ base64_image[:10] }}");
-</script>
+  </script>
+  
 
 </html>
