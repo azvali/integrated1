@@ -10,7 +10,7 @@ log_resource_usage() {
     echo "NGINX Metrics:" >> $LOG_FILE
 
     # If pod is updated, may need to update the pod name
-    access_log=$(kubectl logs pkinglot-analyzer-deployment-57b4b88f7d-krcmn -c my-container-name --tail=1000)
+    access_log=$(kubectl logs pkinglot-analyzer-deployment-57b4b88f7d-krcmn -c pkinglot-analyzer --tail=1000)
 
     if [ -n "$access_log" ]; then
         total_requests=$(echo "$access_log" | grep -c "^")
