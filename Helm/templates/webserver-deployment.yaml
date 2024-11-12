@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pkinglot-analyzer-deployment
+  labels:
+    app: pkinglot-analyzer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pkinglot-analyzer
+  template:
+    metadata:
+      labels:
+        app: pkinglot-analyzer
+    spec:
+      containers:
+      - name: pkinglot-analyzer
+        image: chrisstefaniak/pkinglot-analyzer:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000

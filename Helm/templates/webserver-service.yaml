@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  selector:
+    app: pkinglot-analyzer
+  ports:
+    - port: 5000
