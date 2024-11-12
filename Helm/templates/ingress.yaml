@@ -5,8 +5,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: 34.148.206.53  # change to the external IP of the NGINX controller external IP
-    http:
+  - http:   
       paths:
       - pathType: Prefix
         path: /
