@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: gcs-backup-rolebinding
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: gcs-backup-sa
+  namespace: default
+roleRef:
+  kind: Role
+  name: gcs-backup-role
+  apiGroup: rbac.authorization.k8s.io

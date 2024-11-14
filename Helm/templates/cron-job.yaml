@@ -8,6 +8,7 @@ spec:
     spec:
       template:
         spec:
+          serviceAccountName: gcs-backup-sa
           containers:
             - name: gcs-backup
               image: google/cloud-sdk:latest
