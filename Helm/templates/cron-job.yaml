@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: gcs-backup
 spec:
-  schedule: "30 17 * * *"  # Runs at midnight every day
+  schedule: "* * * * *"  # Runs at midnight every day
   jobTemplate:
     spec:
       template:
