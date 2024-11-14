@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: gcs-backup
 spec:
-  schedule: "* * * * *"  # Runs at midnight every day
+  schedule: "* * * * *"  # Runs every minute
   jobTemplate:
     spec:
       template:
@@ -19,6 +19,13 @@ spec:
                 kubectl get all --all-namespaces -o yaml > /backup/k8s-resources.yaml
                 gcloud auth activate-service-account --key-file=/secrets/key.json
                 gsutil cp /backup/k8s-resources.yaml gs://your-backup-bucket/k8s-resources-$(date +\%Y\%m\%d\%H\%M\%S).yaml
+              resources:
+                requests:
+                  memory: "128Mi"
+                  cpu: "500m"
+                limits:
+                  memory: "256Mi"
+                  cpu: "1"
               volumeMounts:
               - name: backup-storage
                 mountPath: /backup
