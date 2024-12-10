@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify
+from google.cloud import firestore
 import base64
 import os
 
@@ -7,6 +8,7 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 IMAGE_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_image.txt")
 DESCRIPTION_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_description.txt")
+db = firestore.Client()
 
 def get_default_base64_image():
     with open(os.path.join(UPLOAD_FOLDER, "parking-lot-facebook.jpg"), "rb") as image_file:
@@ -69,6 +71,22 @@ async def submit():
         'description': description,
     }
     return jsonify(response)
+
+
+@app.route('/get-entities', methods=['GET'])
+def get_entities():
+    try:
+        
+        pklot_ref = db.collection('pklot-database')
+        docs = pklot_ref.stream()  
+        
+        
+        entities = [{doc.id: doc.to_dict()} for doc in docs]
+    
+        return jsonify(entities), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
