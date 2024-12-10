@@ -52,6 +52,8 @@ async def submit():
     if not request.is_json:
         return jsonify({'status': 'error', 'message': 'Request must be JSON'}), 400
     
+    print("homo spainenn")
+
     # Get the data from the request
     data = request.get_json()
 
@@ -73,19 +75,21 @@ async def submit():
     return jsonify(response)
 
 
-@app.route('/get-entities', methods=['GET'])
-async def get_entities():
-    try:
+# @app.route('/get-entities', methods=['GET'])
+# def get_entities():
+#     print("dogdogdodgodgodgo")
+#     try:
         
-        pklot_ref = db.collection('pklot-database')
-        docs = pklot_ref.stream()  
+#         print("get-entities endpoint")
+#         pklot_ref = db.collection('pkinglot')
+#         docs = pklot_ref.stream()  
+#         print(pklot_ref)
         
-        
-        entities = [{doc.id: doc.to_dict()} for doc in docs]
+#         entities = [{doc.id: doc.to_dict()} for doc in docs]
     
-        return jsonify(entities), 200
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+#         return jsonify("bark"), 200
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
