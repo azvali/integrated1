@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-from google.cloud import firestore
+# from google.cloud import firestore
 import base64
 import os
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 IMAGE_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_image.txt")
 DESCRIPTION_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_description.txt")
-db = firestore.Client()
+# db = firestore.Client()
 
 def get_default_base64_image():
     with open(os.path.join(UPLOAD_FOLDER, "parking-lot-facebook.jpg"), "rb") as image_file:
@@ -43,7 +43,7 @@ def home():
     base64_image = get_current_image_data()
     description = get_current_description_data() 
 
-    print("home endpoint: " + base64_image[:10])
+    # print("home endpoint: " + base64_image[:10])
     return render_template('index.html', base64_image=base64_image, description=description)
 
 @app.route('/submit', methods=['POST'])
@@ -75,21 +75,21 @@ async def submit():
     return jsonify(response)
 
 
-# @app.route('/get-entities', methods=['GET'])
-# def get_entities():
-#     print("dogdogdodgodgodgo")
-#     try:
+@app.route('/get-entities', methods=['GET'])
+def get_entities():
+    print("dogdogdodgodgodgo")
+    try:
         
-#         print("get-entities endpoint")
-#         pklot_ref = db.collection('pkinglot')
-#         docs = pklot_ref.stream()  
-#         print(pklot_ref)
+        print("get-entities endpoint")
+        pklot_ref = db.collection('pkinglot')
+        docs = pklot_ref.stream()  
+        print(pklot_ref)
         
-#         entities = [{doc.id: doc.to_dict()} for doc in docs]
+        entities = [{doc.id: doc.to_dict()} for doc in docs]
     
-#         return jsonify("bark"), 200
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
+        return jsonify("bark"), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == '__main__':
