@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: pkinglot-analyzer
-        image: chrisstefaniak/pkinglot-analyzer2:latest
+        image: chrisstefaniak/pkinglot-analyzer2:1.0.1
         env:
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: /secrets/key.json

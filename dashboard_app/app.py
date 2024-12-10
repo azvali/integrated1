@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify
-# from google.cloud import firestore
+from google.cloud import firestore
 import base64
 import os
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 UPLOAD_FOLDER = "uploads"
 IMAGE_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_image.txt")
 DESCRIPTION_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_description.txt")
-# db = firestore.Client()
+db = firestore.Client()
 
 def get_default_base64_image():
     with open(os.path.join(UPLOAD_FOLDER, "parking-lot-facebook.jpg"), "rb") as image_file:
@@ -87,7 +87,7 @@ def get_entities():
         
         entities = [{doc.id: doc.to_dict()} for doc in docs]
     
-        return jsonify("bark"), 200
+        return jsonify(entities), 200
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
