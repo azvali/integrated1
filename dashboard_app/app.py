@@ -74,7 +74,7 @@ async def submit():
 
 
 @app.route('/get-entities', methods=['GET'])
-def get_entities():
+async def get_entities():
     try:
         
         pklot_ref = db.collection('pklot-database')
