@@ -17,6 +17,17 @@ spec:
       containers:
       - name: pkinglot-analyzer
         image: chrisstefaniak/pkinglot-analyzer:latest
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /secrets/key.json
+        volumeMounts:
+        - name: firestore-credentials
+          mountPath: /secrets
+          readOnly: true
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
+      volumes:
+      - name: firestore-credentials
+        secret:
+          secretName: firestore-credentials
