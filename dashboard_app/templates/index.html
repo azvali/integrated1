@@ -33,7 +33,7 @@
           const dbBox = document.getElementById('db_box');
 
 
-          const data2 = "{{history|tojson|safe}}"; 
+          const data2 = JSON.parse("{{history|tojson|safe}}"); 
           
 
           data2.forEach(item => {
