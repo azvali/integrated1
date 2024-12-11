@@ -82,7 +82,7 @@ async def submit():
     pklot_ref.add({
         'availability': description,
         'time': current_time,
-        'parking_lot': "p-lot " + registered_pis[uuid]
+        'parking_lot': "p-lot " + str(registered_pis[uuid])
     })
 
     # Send a response indicating success
