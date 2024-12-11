@@ -32,8 +32,6 @@
         <script>
           const dbBox = document.getElementById('db_box');
 
-          console.log(JSON.parse("{{ history }}")) 
-          console.log("{{ history }}") 
           console.log(JSON.parse("{{history|tojson|safe}}"))
 
           const data2 = "{{history|tojson}}"; 
