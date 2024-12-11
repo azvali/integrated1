@@ -2,8 +2,8 @@ cd ./dashboard_app
 
 docker build --no-cache -t flask-app .
 
-docker tag flask-app:latest chrisstefaniak/pkinglot-analyzer2:1.0.3
+docker tag flask-app:latest chrisstefaniak/pkinglot-analyzer2:1.0.4
 
-docker push chrisstefaniak/pkinglot-analyzer2:1.0.3
+docker push chrisstefaniak/pkinglot-analyzer2:1.0.4
 
 pause

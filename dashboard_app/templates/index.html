@@ -32,8 +32,8 @@
         <script>
           const dbBox = document.getElementById('db_box');
 
-          const data2 = "{{ history }}"; 
-          console.log("{{ history }}") 
+          const data2 = "{{ history | tojson | safe }}"; 
+          console.log("{{ history | tojson | safe }}") 
 
           data2.forEach(item => {
             const timeDiv = document.createElement('div');
