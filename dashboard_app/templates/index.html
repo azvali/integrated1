@@ -33,7 +33,7 @@
           const dbBox = document.getElementById('db_box');
 
 
-          const data2 = "{{ history }}"; 
+          const data2 = {{ history|tojson }}; 
           console.log(data2);
 
           data2.forEach(item => {
