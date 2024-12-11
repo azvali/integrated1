@@ -42,9 +42,10 @@ if not os.path.exists(IMAGE_FILE_PATH):
 def home():
     base64_image = get_current_image_data()
     description = get_current_description_data() 
+    history = fetch_entities()
 
     # print("home endpoint: " + base64_image[:10])
-    return render_template('index.html', base64_image=base64_image, description=description)
+    return render_template('index.html', base64_image=base64_image, description=description, history=history)
 
 @app.route('/submit', methods=['POST'])
 async def submit():
@@ -73,6 +74,20 @@ async def submit():
         'description': description,
     }
     return jsonify(response)
+
+
+def fetch_entities():
+    try:
+        pklot_ref = db.collection('pkinglot')
+        docs = pklot_ref.stream()
+        entities = []
+        for doc in docs:
+            data = doc.to_dict()
+            for _, value in data.items():
+                entities.append(value)
+        return entities
+    except Exception as e:
+        raise e
 
 
 @app.route('/get-entities', methods=['GET'])

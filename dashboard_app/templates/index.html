@@ -27,6 +27,27 @@
           </div>
         </div>
       </div>
+      <div class="display_block">
+        <div class="img_block" id="db_box"></div>
+        <script>
+          const dbBox = document.getElementById('db_box');
+
+          const data2 = "{{ history }}";  
+
+          data2.forEach(item => {
+            const timeDiv = document.createElement('div');
+            timeDiv.classList.add('db_time');
+            timeDiv.textContent = item.time;
+
+            const availDiv = document.createElement('div');
+            availDiv.classList.add('db_aval');
+            availDiv.textContent = item.availability;
+
+            dbBox.appendChild(timeDiv);
+            dbBox.appendChild(availDiv);
+          });
+        </script>
+      </div>
       <!-- <div class="display_block">
         <div class="img_block"></div>
         <div class="info_block">
