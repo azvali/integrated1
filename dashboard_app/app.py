@@ -82,11 +82,11 @@ def fetch_entities():
     try:
         pklot_ref = db.collection('pkinglot')
         docs = pklot_ref.stream()
-        entities = []
+        entities = {}
         for doc in docs:
             data = doc.to_dict()
-            for _, value in data.items():
-                entities.append(value)
+            for key, value in data.items():
+                entities[key] = value
         return entities
     except Exception as e:
         raise e
