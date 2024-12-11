@@ -118,3 +118,29 @@ body {
   width: 100vw;
   height: 8vh;
 }
+
+#db_box {
+  height: 100%; 
+  width: 100%; 
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px; 
+  justify-content: center; 
+  align-content: center; 
+  margin: auto; 
+  background-color: #333; 
+  padding-left: 50px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.db_time, .db_aval {
+  width: 150px;
+  height: 50px;
+  border: solid 1px #000;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  background-color: #444; 
+  color: #fff; 
+}
