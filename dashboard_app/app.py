@@ -69,7 +69,7 @@ async def submit():
     save_image_data(base64_image)
     save_description_data(description)
 
-    current_time = datetime.now().time()
+    current_time = datetime.now().time().strftime("%H:%M:%S")
 
     pklot_ref = db.collection('pkinglot')
     pklot_ref.add({
