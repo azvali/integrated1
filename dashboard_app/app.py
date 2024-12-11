@@ -11,6 +11,8 @@ IMAGE_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_image.txt")
 DESCRIPTION_FILE_PATH = os.path.join(UPLOAD_FOLDER, "latest_description.txt")
 db = firestore.Client()
 
+registered_pis = {}
+
 def get_default_base64_image():
     with open(os.path.join(UPLOAD_FOLDER, "parking-lot-facebook.jpg"), "rb") as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
@@ -61,9 +63,14 @@ async def submit():
 
     description = data.get('description', None)
     base64_image = data.get('image', None)
+    uuid = data.get('unique_id', None)
     
     if not description or not base64_image:
         return jsonify({'status': 'error', 'message': 'Missing description or image data'}), 400
+    
+    if uuid not in registered_pis:
+        registered_pis[uuid] = len(registered_pis) + 1
+        print(f"Registered new PI with UUID: {uuid}")
 
     # Save the image data to a file
     save_image_data(base64_image)
@@ -75,6 +82,7 @@ async def submit():
     pklot_ref.add({
         'availability': description,
         'time': current_time,
+        'parking_lot': "p-lot " + registered_pis[uuid]
     })
 
     # Send a response indicating success

@@ -1,7 +1,8 @@
 import requests
 import base64
+import uuid
 import json
-#from picamera2 import Picamera2
+from picamera2 import Picamera2
 from time import sleep
 from datetime import datetime
 
@@ -15,7 +16,7 @@ image_path = "./dashboard_app/uploads/parking-lot-facebook.jpg"
 
 ## "" f"/home/yousef/Desktop/captured_image_{current_time}.jpg"
     
-#api_key = {OPENAI_API_KEY}
+api_key = {OPENAI_API_KEY}
 
 def encode_image(image_path):
     with open(image_path, "rb") as image_file:
@@ -90,10 +91,14 @@ def capture_image():
             #with open(image_path, 'rb') as image_file:
                     
                 #files = {'file': image_file}
+
+            unique_id = str(uuid.uuid4())
                 
             data = {
                 "description": description,
-                "image": base64_image
+                "image": base64_image,
+                "time": current_time,
+                "unique_id": unique_id
             }
             
             #sends to webserver
