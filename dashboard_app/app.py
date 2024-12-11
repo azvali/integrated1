@@ -44,6 +44,8 @@ def home():
     description = get_current_description_data() 
     history = fetch_entities()
 
+    print("db things ", history)
+
     # print("home endpoint: " + base64_image[:10])
     return render_template('index.html', base64_image=base64_image, description=description, history=history)
 
