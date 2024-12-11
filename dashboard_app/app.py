@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from google.cloud import firestore
+from datetime import datetime
 import base64
 import os
 
@@ -55,8 +56,6 @@ async def submit():
     if not request.is_json:
         return jsonify({'status': 'error', 'message': 'Request must be JSON'}), 400
     
-    print("homo spainenn")
-
     # Get the data from the request
     data = request.get_json()
 
@@ -69,6 +68,14 @@ async def submit():
     # Save the image data to a file
     save_image_data(base64_image)
     save_description_data(description)
+
+    current_time = datetime.now().time()
+
+    pklot_ref = db.collection('pkinglot')
+    pklot_ref.add({
+        'availability': description,
+        'time': current_time,
+    })
 
     # Send a response indicating success
     response = {
