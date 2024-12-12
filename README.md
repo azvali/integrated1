@@ -1,38 +1,83 @@
-# Integrated Computing Systems Project
+# Parking Lot Analyzer
 
-Run by navigating to the "dashboard_app" directory and running "python app.py"
+A system to gather images of parking lots, interperet their availability, and display the results onto a web application running in the cloud
 
-To run on GCP:
+## HOW TO RUN WEBAPP
 
-1. Run a Unbuntu VM instance
+Run by creating the following resources:
 
-2. SSH and run "sudo git clone https://github.com/azvali/integrated1"
+    - Firestore Database
+    - Kubernetes Autopilot Cluster
+    - Service Account with "Datastore Owner," "Datastore User," "Editor" and "Viewer" roles
+    - Google Bucket
 
-3. Run "sudo add-apt-repository universe" and "sudo apt update"
+Connect to the GCP cluster and execute the following:
 
-4. Run "sudo apt install python3-pip" and "pip install flask"
+1. Clone this repository
 
-5. Run "sudo apt install nginx"
+2. Install NGINX ingress from the "ingress-nginx" Helm repo
 
-6. Run "sudo nano /etc/nginx/sites-available/flask-app" and paste the following into the file:
+3. Create a key and download the JSON for the service account that was created earlier
 
-    server {
-        listen 80;
-        server_name 127.0.0.1;
+4. Upload the JSON file to the cloud shell file system and run the following command:
 
-        location / {
-            proxy_pass http://127.0.0.1:8000;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_set_header X-Forwarded-Proto $scheme;
-        }
-    }
+       kubectl create secret generic firestore-credentials \
+  --from-file=key.json=/path/to/service-account-key.json
 
-7. Create the symbolic link by executing "sudo ln -s /etc/nginx/sites-available/flask-app /etc/nginx/sites-enabled" and do "sudo systemctl restart nginx"
+5. Install the Helm chart included in this GitHub repo
 
-8. Install gunicorn with "sudo pip3 install gunicorn"
+6. Execute "kubectl get svc" and navigate to the external IP provided by the ingress controller
 
-9. Finally, run the command "gunicorn --workers 3 --bind 127.0.0.1:8000 app:app"
+## HOW TO RUN CAMERA APPLICATION
 
-10. Access it through the external IP provided by the VM
+1. Clone the repository onto a raspberry pi
+
+2. Install the necessary libraries, such as PiCam
+
+3. Fill in the host variable with the correct host IP provided by NGINX ingress
+
+4. Provide an API key for the OpenAI API through an enviornment variable
+
+5. Configure a camera onto the raspberry pi and aim it at a parking lot
+
+6. Run the application and the image along with the interperated availability will be displayed on the webapp
+
+## WEB APP ARCHITECTURE (FLASK PROJECT)
+
+Our web app can be defined by multiple different endpoints
+
+1. / root directory - This serves the web page. It fetches the current parking lot, the availability of that parking lot, and the history of the parking lot's availability and displays them on the page
+
+2.  /submit endpoint - This handles the incoming requests from raspberry pi cameras. It takes the UUID created by the raspberry pi and stores it in a hash map so if there are multiple raspberry pi's, they can be distinguished. The image and the description are temporarily saved so that they can be puled by the root directory endpoint. Finally, the data that was recieived from the pi is sent to the Firestore database 
+
+3.  /get-entities - This endpoint served as a test endpoint, but there is a function that is related to it that processes the data from the database and prepares it to be displayed on the web page.
+
+## PI APPLICATION ARCHITECTURE
+
+The application that runs on the raspberry pi contains a two seperate API calls that translate and send the parking lot observation
+
+1. The application makes a request to the GPT API to interperet the parking lot's avaliability
+
+2. Once the request returns the interpertation, it is then sent to the flask application
+
+## KUBERNETES ARCHITECTURE
+
+Our Kubernetes platform consists of the Helm chart for the main project and the Helm chart for NGINX ingress
+
+The main project Helm chart builds one deployment that has the Kubernetes secret mounted onto it as a volume. This deployment also has a service which is used in the ingress file to expose the endpoints of the flask application. 
+
+## MONITORING SCRIPT
+
+We included a monitoring script to track HTTP requests from the flask application. The only line that needs to be configured is the access log line, which needs to be updated if the pod name is different from what is there. 
+
+The script is outputted to a log file in the project folder, but a cron job can also be set up to backup the log files to a Google Bucket:
+
+    crontab -e
+    
+    0 0 * * * gsutil cp /home/<USERNAME>/integrated1/http_monitoring/webserver_monitor.log gs://<BUCKET-NAME>/webserver_monitor_$(date +\%Y\%m\%d\%H\%M\%S).log >>           /tmp/cron_output.log 2>&1
+    
+    service cron status
+    
+    service cron start
+
+These commands will ensure that the monitoring logs will be backed up in the bucket
