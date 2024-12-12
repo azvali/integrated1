@@ -21,8 +21,7 @@ Connect to the GCP cluster and execute the following:
 
 4. Upload the JSON file to the cloud shell file system and run the following command:
 
-       kubectl create secret generic firestore-credentials \
-  --from-file=key.json=/path/to/service-account-key.json
+       kubectl create secret generic firestore-credentials \ --from-file=key.json=/path/to/service-account-key.json
 
 5. Install the Helm chart included in this GitHub repo
 
